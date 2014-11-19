@@ -33,37 +33,31 @@ class ScrapeService
      */
     public function getAssets($series)
     {
-        $html = $this->scraper->getPageContent('serie/' . $series);
+        $html = $this->scraper->getPageContent('/serie/' . $series);
         $episodeUris = $this->parser->getEpisodeUris($html);
 
-        return $this->getProviderUris($episodeUris);
+        return $this->getUris($episodeUris);
     }
 
     /**
      * @param string[] $episodeUris
      * @return string[]
      */
-    private function getProviderUris($episodeUris)
+    private function getUris($episodeUris)
     {
-        return array_map(function ($episodeUri) {
-            $episodeHtml = $this->scraper->getPageContent('episode/' . $episodeUri);
+        $uris = array();
+
+        foreach ($episodeUris as $episodeUri) {
+            $episodeHtml = $this->scraper->getPageContent('/episode/' . $episodeUri);
             $providerUris = $this->parser->getProviderUris($episodeHtml);
 
-            return $this->getRemoteUris($providerUris);
-        }, $episodeUris);
-    }
+            foreach ($providerUris as $providerUri) {
+                $viewHtml = $this->scraper->getPageContent($providerUri);
+                $uris[] = $this->parser->getRemoteUri($viewHtml);
+            }
+        }
 
-    /**
-     * @param string[] $providerUris
-     * @return string[]
-     */
-    private function getRemoteUris($providerUris)
-    {
-        return array_map(function ($providerUri) {
-            $viewHtml = $this->scraper->getPageContent($providerUri);
-
-            return $this->parser->getRemoteUri($viewHtml);
-        }, $providerUris);
+        return $uris;
     }
 
 }
