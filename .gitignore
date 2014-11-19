@@ -1,0 +1,5 @@
+.idea/
+vendor/
+composer.phar
+app/cache/
+app/config/parameters.yml

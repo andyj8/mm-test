@@ -1,0 +1,28 @@
+imports:
+    - { resource: config_dev.yml }
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+    profiler:
+        collect: false
+
+doctrine:
+    dbal:
+        default_connection: db_query
+        connections:
+            db_query:
+                driver:   pdo_sqlite
+                user:     future_news
+                password: coke
+                memory:   true
+
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+parameters:
+    img_base_path: /tmp/news
+    img_img_path: /img/out

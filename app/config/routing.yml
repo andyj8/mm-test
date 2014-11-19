@@ -1,0 +1,5 @@
+mark_monitor_scraper:
+    resource: "@MarkMonitorScraperBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
