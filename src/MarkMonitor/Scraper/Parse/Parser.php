@@ -2,6 +2,8 @@
 
 namespace MarkMonitor\Scraper\Parse;
 
+use Symfony\Component\DomCrawler\Crawler;
+
 class Parser
 {
     /**
@@ -19,21 +21,52 @@ class Parser
 
     /**
      * @param string $html
-     * @return Asset[]
+     * @return string[]
      */
-    public function getAssets($html)
+    public function getEpisodeUris($html)
     {
+        $crawler = $this->getCrawler($html);
 
+        $episodeUris = array();
+        $selector = "//ul[@class='listings episodeListings']/li/a";
+        foreach ($crawler->filterXPath($selector) as $node) {
+            $episodeUris[] = $node->getAttribute('href');
+        }
+
+        return $episodeUris;
     }
 
-    public function getUris($html)
+    /**
+     * @param string $html
+     * @return string[]
+     */
+    public function getProviderUris($html)
     {
+        $crawler = $this->getCrawler($html);
 
+        $providerUris = array();
+        $selector = "//div[@class='linktable']/table/tbody/tr/td/a[@class='buttonlink']";
+
+        foreach ($crawler->filterXPath($selector) as $node) {
+            $providerUris[] = $node->getAttribute('href');
+        }
+
+        return $providerUris;
     }
 
+    /**
+     * @param string $html
+     * @return string
+     */
+    public function getRemoteUri($html)
+    {
+        $crawler = $this->getCrawler($html);
 
+        $selector = "//a[@class='myButton']";
+        $button = $crawler->filterXPath($selector);
 
-
+        return $button->getNode(0)->getAttribute('href');
+    }
 
     /**
      * @param string $html

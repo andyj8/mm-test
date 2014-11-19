@@ -23,3 +23,7 @@ parameters:
     debug_redirects:        false
     use_assetic_controller: true
 
+    base_url: http://watchseries.ag/
+    episodes_selector: "//ul[@class='listings episodeListings']/li/a"
+    providers_selector: "//div[@class='linktable']/table/tbody/tr/td/a[@class='buttonlink']"
+    remote_uri_selector: "//a[@class='myButton']"

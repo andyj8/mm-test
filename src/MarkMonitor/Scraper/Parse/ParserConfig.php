@@ -7,43 +7,16 @@ class ParserConfig
     /**
      * @var string
      */
-    private $articlesSelector;
+    public $episodesSelector;
 
     /**
      * @var string
      */
-    private $bodySelector;
+    public $providersSelector;
 
     /**
-     * @return string
+     * @var string
      */
-    public function getArticlesSelector()
-    {
-        return $this->articlesSelector;
-    }
-
-    /**
-     * @param string $articlesSelector
-     */
-    public function setArticlesSelector($articlesSelector)
-    {
-        $this->articlesSelector = $articlesSelector;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBodySelector()
-    {
-        return $this->bodySelector;
-    }
-
-    /**
-     * @param string $bodySelector
-     */
-    public function setBodySelector($bodySelector)
-    {
-        $this->bodySelector = $bodySelector;
-    }
+    public $remoteUriSelector;
 
 }

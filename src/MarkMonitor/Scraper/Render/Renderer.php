@@ -2,14 +2,12 @@
 
 namespace MarkMonitor\Scraper\Render;
 
-use MarkMonitor\Scraper\Asset;
-
 interface Renderer
 {
     /**
-     * @param Asset[] $assets
+     * @param string[] $uris
      * @return mixed
      */
-    public function render($assets);
+    public function render($uris);
 
 }

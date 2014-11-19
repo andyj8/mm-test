@@ -4,13 +4,44 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <services>
-        <service id="mark_monitor_scraper.example" class="MarkMonitor\ScraperBundle\Example">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+
+        <service id="markmonitor.scrape.command"
+                 class="MarkMonitor\ScraperBundle\Command\ScrapeCommand">
+            <argument type="service" id="markmonitor.scrape.service" />
+            <argument type="service" id="markmonitor.scrape.renderer" />
+            <tag name="console.command" />
         </service>
+
+        <service id="markmonitor.scrape.service"
+                 class="MarkMonitor\Scraper\ScrapeService">
+            <argument type="service" id="markmonitor.scrape.scraper" />
+            <argument type="service" id="markmonitor.scrape.parser" />
+        </service>
+
+
+        <service id="markmonitor.scrape.scraper"
+                 class="MarkMonitor\Scraper\Scrape\HttpScraper">
+            <argument type="string">%base_url%</argument>
+            <argument type="service" id="logger" />
+        </service>
+
+
+        <service id="markmonitor.scrape.parser"
+                 class="MarkMonitor\Scraper\Parse\Parser">
+            <argument type="service" id="markmonitor.scrape.parser.config" />
+        </service>
+
+        <service id="markmonitor.scrape.parser.config"
+                 class="MarkMonitor\Scraper\Parse\ParserConfig">
+
+        </service>
+
+
+        <service id="markmonitor.scrape.renderer"
+                 class="MarkMonitor\Scraper\Render\JsonRenderer">
+        </service>
+
     </services>
-    -->
+
 </container>
