@@ -34,7 +34,9 @@
 
         <service id="markmonitor.scrape.parser.config"
                  class="MarkMonitor\Scraper\Parse\ParserConfig">
-
+            <property name="episodesSelector" type="string">%episodes_selector%</property>
+            <property name="providersSelector" type="string">%providers_selector%</property>
+            <property name="remoteUriSelector" type="string">%remote_uri_selector%</property>
         </service>
 
 

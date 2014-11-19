@@ -28,7 +28,7 @@ class Parser
         $crawler = $this->getCrawler($html);
 
         $episodeUris = array();
-        $selector = "//ul[@class='listings episodeListings']/li/a";
+        $selector = $this->config->episodesSelector;
         foreach ($crawler->filterXPath($selector) as $node) {
             $episodeUris[] = $node->getAttribute('href');
         }
@@ -45,7 +45,7 @@ class Parser
         $crawler = $this->getCrawler($html);
 
         $providerUris = array();
-        $selector = "//div[@class='linktable']/table/tbody/tr/td/a[@class='buttonlink']";
+        $selector = $this->config->providersSelector;
 
         foreach ($crawler->filterXPath($selector) as $node) {
             $providerUris[] = $node->getAttribute('href');
@@ -62,7 +62,7 @@ class Parser
     {
         $crawler = $this->getCrawler($html);
 
-        $selector = "//a[@class='myButton']";
+        $selector = $this->config->remoteUriSelector;
         $button = $crawler->filterXPath($selector);
 
         return $button->getNode(0)->getAttribute('href');
